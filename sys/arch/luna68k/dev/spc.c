@@ -67,7 +67,6 @@ spc_mainbus_match(device_t parent, cfdata_t cf, void *aux)
 
 	if (strcmp(ma->ma_name, spc_cd.cd_name))
 		return 0;
-
 	/*
 	 * LUNA-I doesn't have the secondary SCSI.
 	 * However we cannot check it by badaddr() at the address range
@@ -77,8 +76,11 @@ spc_mainbus_match(device_t parent, cfdata_t cf, void *aux)
 	 */
 	if (machtype == LUNA_I && ma->ma_addr != SCSI_ADDR)
 		return 0;
-
-	return 1;
+    
+    if (badaddr((void *)ma->ma_addr, 4)) //check for lack of scsi device
+        return 0;
+	
+    return 1;
 }
 
 static void

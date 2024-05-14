@@ -47,6 +47,7 @@ __KERNEL_RCSID(0, "$NetBSD: xpbus.c,v 1.1 2022/06/10 21:42:23 tsutsui Exp $");
 
 #include <machine/autoconf.h>
 #include <machine/board.h>
+#include <machine/cpu.h>
 
 #include <luna68k/dev/xpbusvar.h>
 #include <luna68k/dev/xplxfirm.h>
@@ -113,7 +114,9 @@ xpbus_match(device_t parent, cfdata_t cf, void *aux)
 
 	if (ma->ma_addr != XP_SHM_BASE)
 		return 0;
-
+	if (badaddr((void *)ma->ma_addr, 4))
+		return 0;
+	
 	xpbus_matched = true;
 	return 1;
 }

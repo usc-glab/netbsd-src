@@ -74,13 +74,12 @@ mainbus_match(device_t parent, cfdata_t cf, void *args)
 static void
 mainbus_attach(device_t parent, device_t self, void *args)
 {
-	int i, ndevs;
+    int i, ndevs;
 	const struct mainbus_attach_args *devs;
 	struct mainbus_attach_args ma;
 
 	devs = luna_devs;
 	ndevs = __arraycount(luna_devs);
-
 	aprint_normal("\n");
 	for (i = 0; i < ndevs; i++) {
 		ma = devs[i];

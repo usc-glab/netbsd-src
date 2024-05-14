@@ -185,7 +185,8 @@ omfbmatch(device_t parent, cfdata_t cf, void *aux)
 
 	if (strcmp(ma->ma_name, fb_cd.cd_name))
 		return 0;
-#if 0	/* XXX badaddr() bombs if no framebuffer is installed */
+#if 1	/* XXX badaddr() bombs if no framebuffer is installed */
+        /* shouldn't on emulated hardware? */
 	if (badaddr((void *)ma->ma_addr, 4))
 		return 0;
 #else

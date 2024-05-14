@@ -164,9 +164,8 @@ le_match(device_t parent, cfdata_t cf, void *aux)
 {
 	struct mainbus_attach_args *ma = aux;
 
-	if (strcmp(ma->ma_name, le_cd.cd_name))
-		return 0;
-
+	if (strcmp(ma->ma_name, le_cd.cd_name)) {return 0;}
+    if (badaddr((void *)ma->ma_addr, 4)) {return 0;}
 	return 1;
 }
 
